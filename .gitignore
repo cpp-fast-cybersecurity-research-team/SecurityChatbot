@@ -1,0 +1,116 @@
+# Node.js / React.js
+node_modules/
+build/
+/dist/
+.DS_Store
+
+# Python / Flask
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite
+*.log
+
+# Virtual Environment
+venv/
+env/
+ENV/
+
+# IDE-specific files
+.vscode/
+.idea/
+
+# Compiled Python files
+*.pyc
+
+# Compiled Java files
+*.class
+
+# Compiled C++ files
+*.out
+
+# Compiled binaries
+*.bin
+
+# Dependency directories
+lib/
+vendor/
+
+# Docker Compose
+docker-compose.yml
+docker-compose.override.yml
+*.override
+
+# Local .env files
+.env
+
+# Editor-specific files
+*.sublime-project
+*.sublime-workspace
+*.komodoproject
+.komodotools/
+_notes/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Mono Auto Generated Files
+mono_crash.*
+
+# Windows image file caches
+Desktop.ini
+Icon?
+Cache.db
+ehthumbs_vista.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# VS Code directories
+.vscode/
+
+# WSL
+.local/
+.local/share/
+.local/bin/
+.local/lib/
+.local/include/
+.local/share/
+.local/share/recently-used.xbel
+.local/share/applications/
+
+# Anaconda
+anaconda3/
+.conda/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Spyder settings
+.spyderproject
+.spyderworkspace
+
+# Kite
+.kite/
+
+# macOS
+.DS_Store
+
+# JetBrains IDE
+.idea/
+
+# .env files
+.env*
