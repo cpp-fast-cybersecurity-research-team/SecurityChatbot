@@ -1,2 +1,2 @@
 # FAST_AI
-Project will focus on creating a machine learning chatbot that has cybersecurity functions. We aim to utilize APIs of existing cybersecurity tools and integrate it into our chatbot. That's the plan for right now, but changes or additions to the plan might occur. 
+This Project focuses on creating a chatbot, specialized in various cybersecurity topics. The chatbot is interactible through a web interface made using React.js and incorporates Flask to handle backend requests. Using Langchain, we are able to access GPTs functionality to make text-baseed requests. Additionally, we use vector databases to query information to specalize the chatbot with the resources we collected and stored.  
