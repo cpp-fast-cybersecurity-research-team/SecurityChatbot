@@ -1,13 +1,12 @@
 from langchain_openai import OpenAIEmbeddings
 from langchain.vectorstores import FAISS
-from utils import load_documents
+from utils import load_db
 
 embeddings = OpenAIEmbeddings()
 
-texts = load_documents()
+documents = load_db(embeddings)
 
-# TODO: change to for documents instead of texts
-docsearch = FAISS.from_texts(texts, embeddings)
+docsearch = FAISS.from_documents(documents, embeddings)
 
 class VectorbaseQuery:
     

@@ -36,7 +36,7 @@ def load_documents(directory : str):
 
 def load_db(embedding_function, save_path='faiss_db', index_name='documents'):
     '''
-        Load vector database
+        Load vector database with FAISS
 
         arg: embedding_function = embedding model, ex: OpenAI embedding
     '''
@@ -44,5 +44,10 @@ def load_db(embedding_function, save_path='faiss_db', index_name='documents'):
     return db
 
 def save_db(db, save_path='faiss_db', index_name='documents'):
+    '''
+        Save vector database locally with FAISS
+
+        arg: db = vector database
+    '''
     db.save_local(save_path, index_name)
     print("Saved db to " + save_path + index_name)
