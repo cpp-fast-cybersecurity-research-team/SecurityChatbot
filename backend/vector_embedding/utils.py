@@ -1,11 +1,11 @@
 import os
 from dotenv import load_dotenv
 
-from langchain.document_loaders import PyPDFLoader
+from langchain_community.document_loaders import PyPDFLoader
 from langchain.text_splitter import CharacterTextSplitter
-from langchain.vectorstores import FAISS
-import tqdm
-import glob
+from langchain_community.vectorstores import FAISS
+from tqdm import tqdm
+from glob import glob
 
 load_dotenv()
 api_key = os.getenv("OPENAI_API_KEY")
@@ -28,7 +28,7 @@ def load_documents(directory : str):
         length_function = len,
     )
 
-    for item_path in tqdm(glob(directory + "*.pdf")):
+    for item_path in glob("**/" + directory + "*.pdf"):
         doc_loader = PyPDFLoader(item_path)
         documents.extend(doc_loader.load_and_split(text_splitter=text_splitter))
 
