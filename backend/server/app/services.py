@@ -5,8 +5,8 @@ from langchain.memory import ConversationBufferMemory
 from langchain_community.llms import OpenAI
 from langchain.prompts.prompt import PromptTemplate
 
-from langchain.chains import ConversationRetrievalChain
-# from vector_database/utils.py import 
+# from langchain.chains import ConversationRetrievalChain
+# from vector_embeddings/utils.py import 
 
 
 api_key = os.getenv("OPENAI_API_KEY")
