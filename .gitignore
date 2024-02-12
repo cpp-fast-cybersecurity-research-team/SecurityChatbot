@@ -14,6 +14,7 @@ __pycache__/
 *.log
 
 # Virtual Environment
+my_venv/
 venv/
 env/
 ENV/
