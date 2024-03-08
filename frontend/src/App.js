@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+import new_logo from './Cybersecurity_Logo.png';
 import './App.css';
 import React, { useEffect, useState } from 'react';
 
@@ -54,7 +54,12 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+
+        <div>
+          <p>FAST Cybersecurity Research Team Chatbot</p>
+        </div>
+        
+        <img src={new_logo} className="App-logo" alt="logo" />
         
         <div>
           <p>Data from Flask: {JSON.stringify(data, null, 2)}</p>
