@@ -1,0 +1,53 @@
+.home-page-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: row;
+    font-size: 20px;
+  }
+  
+  .home-page-sidebar {
+    background-color: #C7C8C2;
+    flex: 0 0 20vw;
+  }
+  
+  .home-page-main {
+    background-color: #4BCF9B;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 0 0 80vw;
+  }
+  
+  .home-page-title {
+    color: white;
+    font-size: 2.2em;
+  }
+  
+  .home-page-image {
+    height: 200px;
+    width: 200px;
+    background-color: white;
+    margin-top: 10vh;
+  }
+  
+  .home-page-input {
+    margin-top: 40vh;
+    width: 500px;
+  }
+  
+  .home-page-input textarea {
+    background-color: #C7C8C2;
+    border: 2px solid black;
+    border-radius: 25px;
+    width: 85%;
+    height: 30px;
+    padding: 5px 1px 5px 15px;
+  }
+  
+  .home-page-button {
+    background-color: white;
+    position: fixed;
+    height: 44px;
+    width: 30px;
+    border-radius: 25px;
+  }

@@ -1,0 +1,42 @@
+.about-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    background-color: #4BCF9B;
+    color: white;
+    font-size: 16px;
+}
+
+.about-page-title {
+    padding: 45px 0 20px 0;
+    font-size: 2em;
+}
+
+.about-page-information {
+    padding: 0 400px 0 400px;
+    line-height: 25px;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.about-page-links-and-socials {
+    font-size: 1.3em;
+    padding-top: 80px;
+}
+
+.about-page-images {
+    display: flex;
+    flex-direction: row;
+    width: 40vw;
+    justify-content: space-around;
+    padding: 0 0 5% 0;
+}
+
+.about-page-images img {
+    background-color: #C7C8C2;
+    height: 120px;
+    width: 120px;
+    border-radius: 50%;
+}
+
