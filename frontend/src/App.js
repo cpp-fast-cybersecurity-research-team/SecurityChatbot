@@ -24,6 +24,10 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={'http://localhost:3000/Cybersecurity_Logo.png'} className="App-logo" alt="logo" />
+
+        <div>
+          <p>FAST Cybersecurity Research Team Chatbot</p>
+        </div>
         
         <div>
           <p>Data from Flask: {JSON.stringify(data, null, 2)}</p>
