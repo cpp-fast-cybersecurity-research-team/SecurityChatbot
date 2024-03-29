@@ -1,4 +1,3 @@
-import new_logo from './Cybersecurity_Logo.png';
 import './App.css';
 import React, { useEffect, useState } from 'react';
 
@@ -55,7 +54,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         
-        <img src={new_logo} className="App-logo" alt="logo" />
+        <img src={'${process.env.http://localhost:3000}/Cybersecurity_Logo.png'} className="App-logo" alt="logo" />
 
         <div>
           <p>FAST Cybersecurity Research Team Chatbot</p>
