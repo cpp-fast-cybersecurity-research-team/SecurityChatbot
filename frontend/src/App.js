@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import React, { useEffect, useState } from 'react';
 import TextChannel from './components/TextChannel';
@@ -24,7 +23,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        <img src={'http://localhost:3000/Cybersecurity_Logo.png'} className="App-logo" alt="logo" />
         
         <div>
           <p>Data from Flask: {JSON.stringify(data, null, 2)}</p>
