@@ -1,6 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
+import Sidebar from './Sidebar';
 import React, { useEffect, useState } from 'react';
+
 
 function App() {
   const [data, setData] = useState(null);
@@ -53,8 +55,15 @@ function App() {
 
   return (
     <div className="App">
+      { /*Sidebar component*/}
+        <Sidebar />
+      
+      
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
+      </header>
+       {/*Sidebar component
+        <Sidebar /> */}
         
         <div>
           <p>Data from Flask: {JSON.stringify(data, null, 2)}</p>
@@ -77,7 +86,6 @@ function App() {
         <div>
           <p>{gptResponse}</p>
         </div>
-      </header>
     </div>
   );
 }
