@@ -1,11 +1,12 @@
 from langchain.document_loaders import TextLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.embeddings import OpenAIEmbeddings
+#from langchain.embeddings import OpenAIEmbeddings
+from langchain_community.embeddings import OpenAIEmbeddings
 from dotenv import load_dotenv
 
 load_dotenv()
 
-loader = TextLoader("C:\Users\vince\OneDrive\Documents\GitHub\SecurityChatbot\backend\vector_embedding\new_documents\Ch.01_Introduction_ to_computers.pdf", encoding='utf-8')
+loader = TextLoader(r"C:\Users\vince\OneDrive\Documents\GitHub\SecurityChatbot\backend\vector_embedding\new_documents\Ch.01_Introduction_to_computers.pdf", encoding='utf-8')
 documents = loader.load()
 
 print(documents)  # prints the document objects
@@ -30,10 +31,10 @@ doc_vectors = embeddings.embed_documents([t.page_content for t in texts[:5]])
 print(len(doc_vectors))  # 5 vectors in the output
 print(doc_vectors[0])    # this will output the first chunk's 1539-dimensional vector
 
-#   run the following commands in the terminal to run the above code:
-#pip install tiktoken
+#   run the following commands in a new terminal to run the above code (after the app is running):
+# pip install tiktoken
 
-#   In docker desktop run the following:
+#   You should have docker desktop installed and open, then run the following in the terminal still:
 # docker pull ankane/pgvector
 # docker run --name pgvector -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432 -d ankane/pgvector
 
@@ -41,11 +42,15 @@ print(doc_vectors[0])    # this will output the first chunk's 1539-dimensional v
 #   the port is the port set up duing the envrionment setup
 
 #   DataBase Setup:
-# You can now install a GUI tool such as pgAdmin to inspect the database that is running in the container, 
-# or else use psql on the command-line. When connecting, you can specify the host as localhost, and the 
-# password as whatever you used in the above command - mysecretpassword, in our case.
+# You can now install a GUI tool such as pgAdmin 4 to inspect the database that is running in the container, 
+# or else use psql on the command-line. 
+# If your using pgAdmin 4 then simply right click the server on the left and create a new server group named whatever you want.
+# Then right click that server and register a server. The name can once again be whatever you want.
+# In the connection section, you can specify the host as localhost, and the 
+# password as whatever you used in the above command - mysecretpassword, in our case and save.
 
-#   Using the right click query tool on your crated database, run the following code:
+#   Using the right click query tool on your crated database (which you need to make next to the premade database and name vector_db), 
+#   run the following code:
 # CREATE DATABASE vector_db;
 # CREATE EXTENSION pgvector;
 
@@ -55,7 +60,7 @@ print(doc_vectors[0])    # this will output the first chunk's 1539-dimensional v
 from langchain.vectorstores.pgvector import PGVector
 
 CONNECTION_STRING = "postgresql+psycopg2://postgres:mysecretpassword@localhost:5432/vector_db"
-COLLECTION_NAME = 'introduction_ to_computers'
+COLLECTION_NAME = 'introduction_to_computers'
 
 db = PGVector.from_documents(
     embedding=embeddings,
