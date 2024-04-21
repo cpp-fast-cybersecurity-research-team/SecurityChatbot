@@ -1,5 +1,5 @@
 form {
-    margin-top: 150px;
+    margin-top: 20px;
 }
 
 button {
@@ -16,4 +16,13 @@ input {
 .space-between {
     margin: 0px 10px 0px 10px
 }
+
+.textbox-container {
+    padding: 10px;
+    border-radius: 5px;
+    height: 250px;
+    width: 600px;
+    overflow: auto;
+}
+
 
