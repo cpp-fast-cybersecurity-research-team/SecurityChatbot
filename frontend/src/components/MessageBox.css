@@ -1,0 +1,21 @@
+.user-message {
+    display: flex;
+    justify-content: end;
+}
+  
+.gpt-message {
+    display: flex;
+    justify-content: front;
+}
+
+.message-box {
+    background-color: #f0f0f0;
+    margin-bottom: 5px;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    max-width: 300px;   /* change this part */
+    padding: 0px 10px 0px 10px;
+    color: black;
+    font-size: 18px;
+}
+  
