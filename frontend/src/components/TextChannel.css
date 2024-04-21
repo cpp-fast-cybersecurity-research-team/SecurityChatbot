@@ -1,0 +1,19 @@
+form {
+    margin-top: 150px;
+}
+
+button {
+    padding: 8px 30px 8px 30px;
+    border-radius: 12px;
+}
+
+input {
+    padding: 8px 60px 8px 60px;
+    text-align: center;
+    border-radius: 12px;
+}
+
+.space-between {
+    margin: 0px 10px 0px 10px
+}
+

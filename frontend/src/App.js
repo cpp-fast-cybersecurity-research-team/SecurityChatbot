@@ -1,13 +1,11 @@
-import logo from './logo.svg';
 import './App.css';
 import Sidebar from './Sidebar';
 import React, { useEffect, useState } from 'react';
+import TextChannel from './components/TextChannel';
 
 
 function App() {
   const [data, setData] = useState(null);
-  const [message, setMessage] = useState("message");
-  const [gptResponse, setGPTResponse] = useState("response");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,68 +22,26 @@ function App() {
     fetchData();
   }, []);
 
-  const messageSubmit = async (e) => { 
-    e.preventDefault();
-
-    try {
-      const response = await fetch('http://localhost:5000/ask', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          question: message
-        }),
-      });
-
-      if (response.ok) {
-        console.log('Message Sent Successfully!');
-        const data = await response.json();
-
-        console.log(data.gptResponse)
-        setGPTResponse(data.gptResponse)
-      } else {
-        console.error('Failed to send message:', response.statusText);
-        // Handle error
-      }
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
-
   return (
     <div className="App">
-      { /*Sidebar component*/}
-        <Sidebar />
-      
-      
+  
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-      </header>
-       {/*Sidebar component
-        <Sidebar /> */}
+
+        <Sidebar />
+    
+        <img src={'http://localhost:3000/Cybersecurity_Logo.png'} className="App-logo" alt="logo" />
+
+        <div>
+          <p>FAST Cybersecurity Research Team Chatbot</p>
+        </div>
         
         <div>
           <p>Data from Flask: {JSON.stringify(data, null, 2)}</p>
         </div>
 
-        <div>
-          <form onSubmit={messageSubmit}>
-            <label>
-              Message:
-              <input
-                type="text"
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-              />
-            </label>
-            <button type="submit">Send Message</button>
-          </form>
-        </div>
-
-        <div>
-          <p>{gptResponse}</p>
-        </div>
+        <TextChannel/>
+        
+      </header>
     </div>
   );
 }
