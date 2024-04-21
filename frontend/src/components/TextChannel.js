@@ -54,7 +54,6 @@ function TextChannel() {
 
     return (
         <div>
-          {/* <p>{gptResponse}</p> */}
           <div className="textbox-container">
             {messageHistory.map(message => (
               <MessageBox 
@@ -64,18 +63,14 @@ function TextChannel() {
               />
             ))}
           </div>
-          <form onSubmit={messageSubmit}>
-            <label >
-              Message: 
-              <input 
+          <form onSubmit={messageSubmit} className="flex-box">
+            <input 
                 type="text"
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
-                className="space-between"
                 placeholder="Type a question here"
               />
-            </label>
-            <button type="submit" className="space-between">Send Message</button>
+            <button type="submit">Send Message</button>
           </form>
         </div>
     )
