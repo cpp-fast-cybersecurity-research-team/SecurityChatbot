@@ -7,7 +7,7 @@ function MessageBox(props) {
     return (
         <div key={id} className={isUserMessage ? "user-message" : "gpt-message"}> 
             <div className="message-box">
-                <p>{text}</p>
+                {text}
             </div>
         </div>
     )
