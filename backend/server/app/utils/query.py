@@ -1,6 +1,6 @@
 from langchain_openai import OpenAIEmbeddings
 from langchain_community.vectorstores import FAISS
-from utils import load_db
+from .embedding_utils import load_db
 
 embeddings = OpenAIEmbeddings()
 

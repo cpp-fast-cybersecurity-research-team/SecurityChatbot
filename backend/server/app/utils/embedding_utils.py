@@ -34,13 +34,13 @@ def load_documents(directory : str):
 
     return documents
 
-def load_db(embedding_function, save_path='backend/vector_embedding/faiss_db', index_name='documents'):
+def load_db(embedding_function, save_path='./app/vector_embedding/faiss_db', index_name='documents'):
     '''
         Load vector database with FAISS
 
         arg: embedding_function = embedding model, ex: OpenAI embedding
     '''
-    db = FAISS.load_local(folder_path=save_path, index_name=index_name, embeddings = embedding_function, allow_dangerous_deserialization=True)
+    db = FAISS.load_local(folder_path=save_path, index_name=index_name, embeddings = embedding_function)
     return db
 
 def save_db(db, save_path='vector_embedding/faiss_db', index_name='documents'):
