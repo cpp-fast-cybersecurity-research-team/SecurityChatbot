@@ -1,6 +1,6 @@
-from backend.server.app import app
+from .. import app
 from flask import jsonify, request
-from backend.server.app.services import GPTService
+from ..services import GPTService
 
 @app.route('/')
 def home():
