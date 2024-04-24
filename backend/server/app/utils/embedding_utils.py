@@ -34,7 +34,7 @@ def load_documents(directory : str):
 
     return documents
 
-def load_db(embedding_function, save_path='vector_embedding/faiss_db', index_name='documents'):
+def load_db(embedding_function, save_path='./app/vector_embedding/faiss_db', index_name='documents'):
     '''
         Load vector database with FAISS
 

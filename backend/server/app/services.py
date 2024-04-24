@@ -1,34 +1,75 @@
 import os
+from langchain.chains import create_history_aware_retriever, create_retrieval_chain
+from langchain.chains.combine_documents import create_stuff_documents_chain
+from langchain_community.chat_message_histories import ChatMessageHistory
+from langchain_core.chat_history import BaseChatMessageHistory
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+from langchain_core.runnables.history import RunnableWithMessageHistory
+from langchain_openai import OpenAI
+from langchain_openai import OpenAIEmbeddings # Generate embeddings (vector respresentations) of text
+from langchain_community.vectorstores import FAISS # In-memory vector store implementation using FAISS
+from .routes import gpt_routes 
+from .utils.embedding_utils import load_db # Get load database function load_db from utils.py
 
-from langchain.chains import ConversationChain
-from langchain.memory import ConversationBufferMemory
-from langchain_community.llms import OpenAI
-from langchain.prompts.prompt import PromptTemplate
-
-# from langchain.chains import ConversationRetrievalChain
-# from vector_embeddings/utils.py import 
-
+# Load the vector store using load_db
+embeddings = OpenAIEmbeddings()
+vector_store = load_db(embeddings)
+retriever = vector_store.as_retriever()
 
 api_key = os.getenv("OPENAI_API_KEY")
 
 llm = OpenAI(temperature=0)
 
-# Templates
-template = """The following is a friendly conversation between a human and an AI. The AI uses simple language and is straight to the point. If the AI does not know the answer to a question, it truthfully says it does not know.
 
-Current conversation:
-{history}
-Human: {input}
-AI Assistant:"""
+# Contextualize question
+contextualize_q_system_prompt = """Given a chat history and the latest user question \
+which might reference context in the chat history, formulate a standalone question \
+which can be understood without the chat history. Do NOT answer the question, \
+just reformulate it if needed and otherwise return it as is."""
+contextualize_q_prompt = ChatPromptTemplate.from_messages(
+    [
+        ("system", contextualize_q_system_prompt),
+        MessagesPlaceholder("chat_history"),
+        ("human", "{input}"),
+    ]
+)
+history_aware_retriever = create_history_aware_retriever(
+    llm, retriever, contextualize_q_prompt
+)
 
-PROMPT = PromptTemplate(input_variables=["history", "input"], template=template)
+# Answer Question
+qa_system_prompt = """You are an assistant for question-answering tasks. \
+Use the following pieces of retrieved context to answer the question. \
+If you don't know the answer, just say that you don't know. \
+Use four sentences maximum and keep the answers concise, scientific, and professional. \
+Remove any prefaces to the answer such as 'AI: or ChatGPT:'. \
+Keep responses in English.
 
-# Conversation Chain
-conversation = ConversationChain(
-    prompt=PROMPT,
-    llm=llm,
-    verbose=True,
-    memory=ConversationBufferMemory(ai_prefix="AI Assistant"),
+{context}"""
+qa_prompt = ChatPromptTemplate.from_messages(
+    [
+        ("system", qa_system_prompt),
+        MessagesPlaceholder("chat_history"),
+        ("human", "{input}"),
+    ]
+)
+question_answer_chain = create_stuff_documents_chain(llm, qa_prompt)
+rag_chain = create_retrieval_chain(history_aware_retriever, question_answer_chain)
+
+# Statefully manage chat history 
+store = {}
+
+def get_session_history(session_id: str) -> BaseChatMessageHistory:
+    if session_id not in store:
+        store[session_id] = ChatMessageHistory()
+    return store[session_id]
+
+conversational_rag_chain = RunnableWithMessageHistory(
+    rag_chain,
+    get_session_history,
+    input_messages_key="input",
+    history_messages_key="chat_history",
+    output_messages_key="answer",
 )
 
 class GPTService:
@@ -38,6 +79,11 @@ class GPTService:
         Returns 201 for success
     '''
     def ReceiveResponse(message):
-        gptResponse = conversation.predict(input=message)
+        gptResponse = conversational_rag_chain.invoke(
+            {"input": message},
+            config={
+                "configurable": {"session_id": "abc123"}
+            },  # constructs a key "abc123" in `store`.
+        )["answer"]
         print(gptResponse)
         return gptResponse
