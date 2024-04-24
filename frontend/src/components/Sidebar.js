@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './Sidebar.css'
 
 function App() {
  const [currentPage, setCurrentPage] = useState('about'); // Set default page to load
