@@ -1,5 +1,5 @@
 import './App.css';
-import Sidebar from './Sidebar';
+import Sidebar from './components/Sidebar';
 import React, { useEffect, useState } from 'react';
 import TextChannel from './components/TextChannel';
 
@@ -30,18 +30,16 @@ function App() {
 
         <img src={'http://localhost:3000/Cybersecurity_Logo.png'} className="App-logo" alt="logo" />
 
-       </header>
+        <div>
+          <p>FAST Cybersecurity Research Team Chatbot</p>
+        </div>
 
-      <div>
-        <p>FAST Cybersecurity Research Team Chatbot</p>
-      </div>
+        {/* <div>
+          <p>Data from Flask: {JSON.stringify(data, null, 2)}</p>
+        </div> */}
 
-      {/* <div>
-        <p>Data from Flask: {JSON.stringify(data, null, 2)}</p>
-      </div> */}
-
-      <TextChannel/>
-        
+        <TextChannel/>
+      </header>
     </div>
   );
 }
