@@ -1,54 +1,78 @@
 import React, { useState } from 'react';
 import './TextChannel.css'
+import MessageBox from './MessageBox.js';
 
 function TextChannel() {
-    const [message, setMessage] = useState("");
-    const [gptResponse, setGPTResponse] = useState("response");
+    const [inputMessage, setInputMessage] = useState("");
+    const [messageHistory, setMessageHistory] = useState([
+      { 
+        id: 1, 
+        text: "How can I help you today?", 
+        isUserMessage: false
+      }
+    ])
+
+    function createMessage(message, isUserMessage) {
+      const newMessage = {
+        id: Math.random(),
+        text: message,
+        isUserMessage: isUserMessage
+      }
+      setMessageHistory(prevMessages => [newMessage, ...prevMessages])
+    }
 
       const messageSubmit = async (e) => { 
         e.preventDefault();
-    
-        try {
-          const response = await fetch('http://localhost:5000/ask', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              question: message
-            }),
-          });
-    
-          if (response.ok) {
-            console.log('Message Sent Successfully!');
-            const data = await response.json();
-    
-            console.log(data.gptResponse)
-            setGPTResponse(data.gptResponse)
-          } else {
-            console.error('Failed to send message:', response.statusText);
-            // Handle error
+        if(inputMessage.trim() != "") {
+          createMessage(inputMessage, true)
+          try {
+            setInputMessage('');
+            const response = await fetch('http://localhost:5000/ask', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                question: inputMessage
+              }),
+            });
+            if (response.ok) {
+              //GPT makes a response
+              console.log('Message Sent Successfully!');
+              const data = await response.json();
+      
+              console.log(data.gptResponse)
+              createMessage(data.gptResponse[0].trim(), false)
+              // console.log(messageHistory)
+            } else {
+              console.error('Failed to send message:', response.statusText);
+              // Handle error
+            }
+          } catch (error) {
+            console.error('Error:', error);
           }
-        } catch (error) {
-          console.error('Error:', error);
         }
       };
 
     return (
         <div>
-          <p>{gptResponse}</p>
-          <form onSubmit={messageSubmit}>
-            <label >
-              Message: 
-              <input 
+          <div className="textbox-container">
+            {messageHistory.map(message => (
+              <MessageBox 
+                id={message.id}
+                text={message.text} 
+                isUserMessage={message.isUserMessage}
+              />
+            ))}
+          </div>
+          <form onSubmit={messageSubmit} className="flex-box">
+            <input 
                 type="text"
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                className="space-between"
+                value={inputMessage}
+                onChange={(e) => setInputMessage(e.target.value)}
                 placeholder="Type a question here"
               />
-            </label>
-            <button type="submit" className="space-between">Send Message</button>
+            <button type="submit">Send Message</button>
           </form>
         </div>
     )

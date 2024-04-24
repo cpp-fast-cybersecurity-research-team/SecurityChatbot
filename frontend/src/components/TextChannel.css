@@ -1,19 +1,31 @@
-form {
-    margin-top: 150px;
-}
-
 button {
-    padding: 8px 30px 8px 30px;
-    border-radius: 12px;
+    background-color: #D9D9D9;
+    padding: 10px 30px 10px 30px;
+    border-radius: 25px;
 }
 
 input {
-    padding: 8px 60px 8px 60px;
+    background-color: #D9D9D9;
+    padding: 10px 20px 10px 20px;
+    width: 350px;
     text-align: center;
-    border-radius: 12px;
+    border-radius: 25px;
 }
 
-.space-between {
-    margin: 0px 10px 0px 10px
+.flex-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
 }
+
+.textbox-container {
+    display: flex;
+    flex-direction: column-reverse;
+    overflow: auto;
+    padding: 10px;
+    margin: 0px auto 10px auto;
+    height: 270px;
+    width: 550px;
+}
+
 

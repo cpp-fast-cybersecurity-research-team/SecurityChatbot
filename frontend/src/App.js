@@ -29,9 +29,9 @@ function App() {
           <p>FAST Cybersecurity Research Team Chatbot</p>
         </div>
         
-        <div>
+        {/* <div>
           <p>Data from Flask: {JSON.stringify(data, null, 2)}</p>
-        </div>
+        </div> */}
 
         <TextChannel/>
         
