@@ -8,6 +8,7 @@
     left: 0; /* Position sidebar on the left side */ 
     top: 0; /* Position sidebar at the top */ 
     overflow-y: auto; /* Add scrollbar if content exceeds height */
+    transition: transform 0.3s ease-in-out; /* Use transform instead of left for smoother animation */
   } 
   
   .sidebar h2 {
@@ -38,4 +39,25 @@
   
   li:hover {
     background-color: #ccc;
+  }
+
+  .sidebar.open {
+    transform: translateX(0); /* Display the sidebar when open */
+  }
+  
+  .sidebar.closed {
+    transform: translateX(-200px); /* Hide the sidebar when closed */
+  }
+  
+  .toggle-btn {
+    position: absolute;
+    top: 500px;
+    right: 0px; /* Adjust the position of the toggle button */
+    cursor: pointer;
+    color: #000000;
+    font-size: 24px;
+  }
+  
+  .toggle-btn span {
+    cursor: pointer;
   }
