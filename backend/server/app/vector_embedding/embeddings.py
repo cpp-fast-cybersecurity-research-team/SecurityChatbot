@@ -3,9 +3,9 @@ from dotenv import load_dotenv
 
 from langchain_community.document_loaders import PyPDFLoader
 from langchain.text_splitter import CharacterTextSplitter
-from langchain_community.vectorstores import FAISS
 from tqdm import tqdm
 from glob import glob
+from langchain.embeddings import OpenAIEmbeddings
 
 load_dotenv()
 api_key = os.getenv("OPENAI_API_KEY")
@@ -34,20 +34,8 @@ def load_documents(directory : str):
 
     return documents
 
-def load_db(embedding_function, save_path='./app/vector_embedding/faiss_db', index_name='documents'):
-    '''
-        Load vector database with FAISS
+def load_embeddings():
+    return OpenAIEmbeddings()
 
-        arg: embedding_function = embedding model, ex: OpenAI embedding
-    '''
-    db = FAISS.load_local(folder_path=save_path, index_name=index_name, embeddings = embedding_function)
-    return db
-
-def save_db(db, save_path='vector_embedding/faiss_db', index_name='documents'):
-    '''
-        Save vector database locally with FAISS
-
-        arg: db = vector database
-    '''
-    db.save_local(save_path, index_name)
-    print("Saved db to " + save_path + index_name)
+def generate_document_vectors(embeddings, documents):
+    return embeddings.embed_documents([t.page_content for t in documents])

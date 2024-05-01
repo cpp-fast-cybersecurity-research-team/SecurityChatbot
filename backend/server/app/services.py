@@ -6,20 +6,39 @@ from langchain_core.chat_history import BaseChatMessageHistory
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain_openai import OpenAI
-from langchain_openai import OpenAIEmbeddings # Generate embeddings (vector respresentations) of text
-from langchain_community.vectorstores import FAISS # In-memory vector store implementation using FAISS
-from .routes import gpt_routes 
-from .utils.embedding_utils import load_db # Get load database function load_db from utils.py
 
-# Load the vector store using load_db
-embeddings = OpenAIEmbeddings()
-vector_store = load_db(embeddings)
-retriever = vector_store.as_retriever()
+# from langchain_openai import OpenAIEmbeddings # Generate embeddings (vector respresentations) of text
+# from langchain_community.vectorstores import FAISS # In-memory vector store implementation using FAISS
+# from .routes import gpt_routes 
+# from .vector_embedding.utils.embedding_utils import load_db # Get load database function load_db from utils.py
+
+""" DATABASE_URL = os.getenv("PGVECTOR_CONNECTION_STRING")
+DATABASE_NAME = os.getenv("PGVECTOR_COLLECTION_NAME")
+
+embeddings = load_embeddings()
+documents = load_documents("./vector_embedding/data")  
+# document_vectors = generate_document_vectors(embeddings, documents)
+vector_store_db = PGVector.from_documents(
+    embedding=embeddings,
+    documents=documents,
+    collection_name=DATABASE_NAME,
+    connection_string=DATABASE_URL,
+) """
+
+from . import db
+
+retriever = db.as_retriever(
+    search_type="mmr",
+    search_kwargs={'k': 1, 'fetch_k': 50}
+)
 
 api_key = os.getenv("OPENAI_API_KEY")
 
 llm = OpenAI(temperature=0)
 
+# Add query_similar_documents
+""" def query_similar_documents(db, query, k=2):
+    return db.similarity_search_with_score(query, k) """
 
 # Contextualize question
 contextualize_q_system_prompt = """Given a chat history and the latest user question \
