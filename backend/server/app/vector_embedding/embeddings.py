@@ -28,7 +28,7 @@ def load_documents(directory : str):
         length_function = len,
     )
 
-    for item_path in glob("**/" + directory + "*.pdf"):
+    for item_path in glob("*/vector_embedding/data/*.pdf"):
         doc_loader = PyPDFLoader(item_path)
         documents.extend(doc_loader.load_and_split(text_splitter=text_splitter))
 
