@@ -1,63 +1,136 @@
-.sidebar {
-    height: 100%; /* Adjust height */ 
-    width: 200px; /* Adjust width */
-    background-color: #D9D9D9;
-    padding: 20px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    position: fixed; /* Position sidebar relative to the viewport */ 
-    left: 0; /* Position sidebar on the left side */ 
-    top: 0; /* Position sidebar at the top */ 
-    overflow-y: auto; /* Add scrollbar if content exceeds height */
-    transition: transform 0.3s ease-in-out; /* Use transform instead of left for smoother animation */
-  } 
-  
-  .sidebar h2 {
-    font-size: 18px;
-    margin-bottom: 10px;
-    font-family: 'Inter', sans-serif; /* Specify font family */ 
-  }
-  
-  .sidebar ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .sidebar ul li {
-    margin-bottom: 10px; /* Increase spacing between list items */
-    cursor: pointer;
-    transition: color 0.3s; /* Add transition for smooth color change */ 
-  }
-  
-  .sidebar ul li:hover {
-    color: #007bff; /* Change text color on hover */ 
-  } 
-  
-  li {
-    padding: 10px;
-    cursor: pointer;
-  }
-  
-  li:hover {
-    background-color: #ccc;
-  }
+/* Sidebar.css */
 
-  .sidebar.open {
-    transform: translateX(0); /* Display the sidebar when open */
-  }
+.sidebar {
+  height: 100%; /* Adjust height */ 
+  width: 220px; /* Adjust width */
+  background-color: #D9D9D9;
+  padding: 20px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  position: fixed; /* Position sidebar relative to the viewport */ 
+  left: 0; /* Position sidebar on the left side */ 
+  top: 0; /* Position sidebar at the top */ 
+  overflow-y: auto; /* Add scrollbar if content exceeds height */
+  transition: transform 0.3s ease-in-out; /* Use transform instead of left for smoother animation */
+  display: flex;
+  flex-direction: column;
+}
+
+.menu {
+  flex: .5; /* Occupy remaining space */
+  padding: 10px;
+}
+
+.menu h1,
+.menu h2,
+.menu ul {
+  margin: 0;
+}
+
+.menu ul {
+  list-style-type: none;
+}
+
+.menu ul li {
+  margin-bottom: 15px; /* Increase spacing between list items */
+  cursor: pointer;
+  transition: color 0.3s; /* Add transition for smooth color change */
+}
+
+.menu ul li:hover {
+  color: #007bff; /* Change text color on hover */
+}
   
-  .sidebar.closed {
-    transform: translateX(-200px); /* Hide the sidebar when closed */
-  }
-  
-  .toggle-btn {
-    position: absolute;
-    top: 500px;
-    right: 0px; /* Adjust the position of the toggle button */
-    cursor: pointer;
-    color: #000000;
-    font-size: 24px;
-  }
-  
-  .toggle-btn span {
-    cursor: pointer;
-  }
+.content {
+  padding: 20px; /* Add some padding */
+  flex: 1; /* Occupy remaining space */
+  overflow-y: auto; /* Add scrollbar if content exceeds height */
+}
+
+.border {
+  border-top: 5px dotted #000; /* Dashed border at the top */
+  margin-top: auto;
+}
+
+.sidebar h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  font-family: 'Inter', sans-serif; /* Specify font family */ 
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin-bottom: 10px; /* Increase spacing between list items */
+  cursor: pointer;
+  transition: color 0.3s; /* Add transition for smooth color change */ 
+}
+
+.sidebar ul li:hover {
+  color: #007bff; /* Change text color on hover */ 
+} 
+
+li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+li:hover {
+  background-color: #ccc;
+}
+
+.sidebar.open {
+  transform: translateX(0); /* Display the sidebar when open */
+}
+
+.sidebar.closed {
+  transform: translateX(-220px); /* Hide the sidebar when closed */
+}
+
+.toggle-btn-container {
+  cursor: pointer;
+  width: 100%; /* Make the clickable area span the entire width */
+}
+
+.toggle-btn {
+  position: absolute;
+  top: 388px;
+  right: 7px; /* Adjust the position of the toggle button */
+  cursor: pointer;
+  color: #000000;
+  font-size: 28px;
+  display: block;
+}
+
+.toggle-btn:hover {
+  color: #007bff;  
+  cursor: pointer;
+}
+
+.about-button {
+  display: block;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.3s;  
+  border-radius: 25px;
+  padding: 5px 28px;
+  border: 3px solid #D9D9D9;
+}
+
+.about-button:hover {
+  color: white;
+  background-color: #4BCF9B;
+}
+
+.about-button.active {
+  border: 2px solid #4BCF9B;
+}
+
+.home-title {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.3s;
+}
