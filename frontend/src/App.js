@@ -1,11 +1,13 @@
-import './App.css';
-import Sidebar from './components/Sidebar';
 import React, { useEffect, useState } from 'react';
-import TextChannel from './components/TextChannel';
-
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // Import Routes
+import Sidebar from './components/Sidebar'; // Import SideBar component
+import AboutPage from './Pages/AboutPage'; // Import AboutPage component
+import TextChannel from './components/TextChannel'; // Import AboutPage component
+import './App.css';
 
 function App() {
   const [data, setData] = useState(null);
+  const [showAboutPage, setShowAboutPage] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,25 +24,41 @@ function App() {
     fetchData();
   }, []);
 
+  const toggleAboutPage = () => {
+    setShowAboutPage(!showAboutPage);
+  };
+
   return (
-    <div className="App">
-      <Sidebar />
-      
-      <header className="App-header">
+    <Router>
+      <div className="App">
+        <Sidebar toggleAboutPage={toggleAboutPage} showAboutPage={showAboutPage} />
+          
+        {showAboutPage ? (
+          <AboutPage />
+        ) : (
+          <header className="App-header">
+            <img src={'http://localhost:3000/Cybersecurity_Logo.png'} 
+              className="App-logo" alt="logo" />
+        
+            <div>
+              <p>FAST Cybersecurity Research Team Chatbot</p>
+            </div>
 
-        <img src={'http://localhost:3000/Cybersecurity_Logo.png'} className="App-logo" alt="logo" />
+            {/* <div>
+              <p>Data from Flask: {JSON.stringify(data, null, 2)}</p>
+            </div> */}
 
-        <div>
-          <p>FAST Cybersecurity Research Team Chatbot</p>
-        </div>
+            <TextChannel/>
+          </header>
+        )}
 
-        {/* <div>
-          <p>Data from Flask: {JSON.stringify(data, null, 2)}</p>
-        </div> */}
+        <Routes>
+          <Route path="/about" element={<AboutPage />} />
+          {/* Define other routes here */}
+        </Routes>
 
-        <TextChannel/>
-      </header>
-    </div>
+      </div>
+    </Router>
   );
 }
 
