@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import './TextChannel.css'
 import MessageBox from './MessageBox.js';
 
-function TextChannel() {
+function TextChannel({setHasUserSentFirstMessage,hasUserSentFirstMessage}) {
     const [inputMessage, setInputMessage] = useState("");
     const [messageHistory, setMessageHistory] = useState([
       { 
@@ -11,6 +11,11 @@ function TextChannel() {
         isUserMessage: false
       }
     ])
+
+
+    useEffect(() => {
+      console.log('hasUserSentFirstMessage:', hasUserSentFirstMessage);
+    }, [hasUserSentFirstMessage]); 
 
     function createMessage(message, isUserMessage) {
       const newMessage = {
@@ -25,6 +30,13 @@ function TextChannel() {
         e.preventDefault();
         if(inputMessage.trim() != "") {
           createMessage(inputMessage, true)
+
+          if(!hasUserSentFirstMessage)
+            {
+              setHasUserSentFirstMessage(true);
+            }
+
+
           try {
             setInputMessage('');
             const response = await fetch('http://localhost:5000/ask', {

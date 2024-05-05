@@ -4,6 +4,8 @@ import TextChannel from './components/TextChannel';
 
 function App() {
   const [data, setData] = useState(null);
+  const [hasUserSentFirstMessage, setHasUserSentFirstMessage]=useState(false);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,20 +22,28 @@ function App() {
     fetchData();
   }, []);
 
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={'http://localhost:3000/Cybersecurity_Logo.png'} className="App-logo" alt="logo" />
 
+      <img src={'http://localhost:3000/Cybersecurity_Logo.png'} className={`App-logo ${hasUserSentFirstMessage ? 'App-logo-userSentFirstMessage' : ''}`} alt="logo" />
+
+        {!hasUserSentFirstMessage && (
         <div>
           <p>FAST Cybersecurity Research Team Chatbot</p>
         </div>
-        
+        )}
+
+
         {/* <div>
           <p>Data from Flask: {JSON.stringify(data, null, 2)}</p>
         </div> */}
 
-        <TextChannel/>
+        <TextChannel 
+          setHasUserSentFirstMessage={setHasUserSentFirstMessage} 
+          hasUserSentFirstMessage={hasUserSentFirstMessage} 
+        />
         
       </header>
     </div>

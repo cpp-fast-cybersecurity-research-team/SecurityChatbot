@@ -4,7 +4,7 @@
 
 .App-logo {
   height: 30vmin;
-  pointer-events: none;
+
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -12,6 +12,8 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
+
+
 
 .App-header {
   background-color: #282c34;
@@ -36,3 +38,14 @@
     transform: rotate(360deg);
   }
 }
+
+.App-logo-userSentFirstMessage {
+  position:absolute;
+  top:0;
+  left:0;
+  padding-left:15px;
+  padding-top:15px;
+  height:10vmin;
+  animation:none;
+}
+
