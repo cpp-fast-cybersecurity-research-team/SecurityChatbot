@@ -28,9 +28,16 @@ def load_documents(directory : str):
         length_function = len,
     )
 
+    # TODO: change to pdf -> html -> html parser -> text
     for item_path in glob("*/vector_embedding/data/*.pdf"):
         doc_loader = PyPDFLoader(item_path)
         documents.extend(doc_loader.load_and_split(text_splitter=text_splitter))
+    
+        print("Loaded Document: " + item_path)
+
+    print("Replacing NULL (0x00) characters...")
+    for document in documents:
+            document.page_content = document.page_content.replace('\x00', '')
 
     return documents
 
