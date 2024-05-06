@@ -1,5 +1,5 @@
 import os
-from langchain.chains import create_history_aware_retriever, create_retrieval_chain
+from langchain.chains import create_retrieval_chain
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain_community.chat_message_histories import ChatMessageHistory
 from langchain_core.chat_history import BaseChatMessageHistory
@@ -34,7 +34,7 @@ db = PGVector.from_documents(
 
 retriever = db.as_retriever(
     search_type="mmr",
-    search_kwargs={'k': 1, 'fetch_k': 50}
+    search_kwargs={'k': 2, 'fetch_k': 50}
 )
 
 api_key = os.getenv("OPENAI_API_KEY")
@@ -42,7 +42,7 @@ api_key = os.getenv("OPENAI_API_KEY")
 llm = OpenAI(temperature=0)
 
 # Answer Question
-qa_system_prompt = """You are an assistant for question-answering tasks. Use the following pieces of retrieved context to answer the question. If you don't know the answer, just say that you don't know. Respond in first person without any prefaces to the answer that mention your identity such as 'AI: or ChatGPT:'. If the context has nothing to do with the question, state that it isn't and do not answer the question. Use four sentences maximum and keep the answers concise, scientific, and professional. Keep responses in English. Here is the context: {context}"""
+qa_system_prompt = """You are an assistant for answering cybersecurity related questions. You will receive some context to answer the question. If you don't know the answer or if the context is irrelevant with the question, just say that you don't know. You will also receive a past conversation history to use a reference, but absolutely DON'T include 'AI:' or 'System:' at the beginning of your answers, and only respond with a response to the latest user question in first person, without any prefaces used beforehand. Use two to four sentences while keeping your answers concise, scientific, and professional. Keep responses in English. {context}"""
 
 qa_prompt = ChatPromptTemplate.from_messages(
     [
@@ -80,7 +80,7 @@ class GPTService:
         gptResponse = conversational_rag_chain.invoke(
             {"input": message},
             config={
-                "configurable": {"session_id": "4321"}
+                "configurable": {"session_id": "1234"}
             },  # constructs a key "abc123" in `store`.
         )["answer"]
         print(gptResponse)
