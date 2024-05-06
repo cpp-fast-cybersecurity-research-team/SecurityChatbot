@@ -3,9 +3,9 @@ from dotenv import load_dotenv
 
 from langchain_community.document_loaders import PyPDFLoader
 from langchain.text_splitter import CharacterTextSplitter
-from langchain_community.vectorstores import FAISS
 from tqdm import tqdm
 from glob import glob
+from langchain.embeddings import OpenAIEmbeddings
 
 load_dotenv()
 api_key = os.getenv("OPENAI_API_KEY")
@@ -28,26 +28,21 @@ def load_documents(directory : str):
         length_function = len,
     )
 
-    for item_path in glob("**/" + directory + "*.pdf"):
+    # TODO: change to pdf -> html -> html parser -> text
+    for item_path in glob("*/vector_embedding/data/*.pdf"):
         doc_loader = PyPDFLoader(item_path)
         documents.extend(doc_loader.load_and_split(text_splitter=text_splitter))
+    
+        print("Loaded Document: " + item_path)
+
+    print("Replacing NULL (0x00) characters...")
+    for document in documents:
+            document.page_content = document.page_content.replace('\x00', '')
 
     return documents
 
-def load_db(embedding_function, save_path='./app/vector_embedding/faiss_db', index_name='documents'):
-    '''
-        Load vector database with FAISS
+def load_embeddings():
+    return OpenAIEmbeddings()
 
-        arg: embedding_function = embedding model, ex: OpenAI embedding
-    '''
-    db = FAISS.load_local(folder_path=save_path, index_name=index_name, embeddings = embedding_function)
-    return db
-
-def save_db(db, save_path='vector_embedding/faiss_db', index_name='documents'):
-    '''
-        Save vector database locally with FAISS
-
-        arg: db = vector database
-    '''
-    db.save_local(save_path, index_name)
-    print("Saved db to " + save_path + index_name)
+def generate_document_vectors(embeddings, documents):
+    return embeddings.embed_documents([t.page_content for t in documents])
