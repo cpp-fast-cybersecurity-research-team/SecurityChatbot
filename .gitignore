@@ -1,3 +1,6 @@
+data/
+html_result/
+
 # Node.js / React.js
 node_modules/
 build/
